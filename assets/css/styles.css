@@ -1,0 +1,11 @@
+/* UNIVERSAL STYLING */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* BODY STYLING */
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
+}
