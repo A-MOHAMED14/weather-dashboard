@@ -1,5 +1,6 @@
 /* UNIVERSAL STYLING */
 * {
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
@@ -25,6 +26,38 @@ body {
 
 #title h1 {
   font-size: 4rem;
+  font-weight: 700;
   text-align: center;
   color: white;
+}
+
+/* SEARCH FOR A CITY SECTION STYLING*/
+
+#search-city {
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+#search-city h2 {
+  font-weight: 600;
+  font-size: 2.2rem;
+}
+
+#search-city form input {
+  padding: 0 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+#search-city form button {
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #4801ff;
+  color: white;
+}
+
+#seach-city form button:hover {
+  background-color: #6a2fff;
 }
