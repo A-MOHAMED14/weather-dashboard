@@ -85,7 +85,7 @@ body {
   background-color: #3000a8;
 }
 
-/* CURRENT WEATHER CONTAINER STYLING */
+/* CURRENT LOCATION WEATHER CONTAINER STYLING */
 #current-location-weather {
   display: flex;
   flex-direction: column;
@@ -96,4 +96,10 @@ body {
 
 .searched-city-button:hover {
   background-color: #4f3397;
+}
+
+/* CURRENT WEATHER CONTAINER STYLING */
+#current-weather-data {
+  display: flex;
+  flex-direction: column;
 }
