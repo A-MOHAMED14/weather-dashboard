@@ -12,11 +12,13 @@ const WEATHER_API_BASE_URL = "https://api.openweathermap.org";
 const WEATHER_API_KEY = "f23ee9deb4e1a7450f3157c44ed020e1";
 const MAX_DAILY_FORECAST = 5;
 
+// Event listener for search button
 searchBtnEl.addEventListener("click", (event) => {
   event.preventDefault();
 
   const city = cityInputEl.value;
 
+  // Clear previous data
   searchedCitiesEl.textContent = "";
   currentWeatherData.textContent = "";
   upcomingWeatherData.textContent = "";
@@ -25,8 +27,10 @@ searchBtnEl.addEventListener("click", (event) => {
   showSearchedCities(city);
 });
 
+// Show searched cities on page load
 showSearchedCities();
 
+// Display searched cities
 function showSearchedCities(city) {
   if (city) {
     let citiesArr = JSON.parse(localStorage.getItem("searchedCities")) || [];
@@ -38,7 +42,7 @@ function showSearchedCities(city) {
     }
   }
 
-  const storedCities = JSON.parse(localStorage.getItem("searchedCities"));
+  const storedCities = JSON.parse(localStorage.getItem("searchedCities")) || [];
 
   storedCities.forEach((city) => {
     const cityBtnEl = document.createElement("button");
@@ -46,6 +50,7 @@ function showSearchedCities(city) {
     cityBtnEl.classList.add("searched-city-button");
     searchedCitiesEl.append(cityBtnEl);
 
+    // Add event listener to each city button
     cityBtnEl.addEventListener("click", (event) => {
       event.preventDefault();
       currentWeatherData.textContent = "";
@@ -54,8 +59,7 @@ function showSearchedCities(city) {
       fetchWeatherData(city);
     });
 
-    searchedCitiesEl.setAttribute("style", "width: 100%");
-
+    // Set button styles
     cityBtnEl.setAttribute(
       "style",
       "width: 100%; border: none; border-radius: 5px; padding: 5px; margin-bottom: 10px; color: white; background-color: #895bff"
@@ -63,7 +67,7 @@ function showSearchedCities(city) {
   });
 }
 
-// Lookup the location to get the Lat/Lon
+// Fetch weather data for a city
 function fetchWeatherData(city) {
   const apiUrl = `${WEATHER_API_BASE_URL}/geo/1.0/direct?q=${city}&limit=5&appid=${WEATHER_API_KEY}`;
   fetch(apiUrl)
@@ -71,18 +75,18 @@ function fetchWeatherData(city) {
     .then((data) => {
       console.log(data, "<-----");
 
-      // Pick the First location from the results
+      // Pick the first location from the results
       const location = data[0];
       const lat = location.lat;
       const lon = location.lon;
 
-      // Get the Weather for the cached location
+      // Get the weather for the selected location
       const apiUrl = `${WEATHER_API_BASE_URL}/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${WEATHER_API_KEY}`;
 
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data), "******";
+          console.log(data, "******");
 
           // Current weather data
           const currentWeather = data.current;
@@ -92,16 +96,12 @@ function fetchWeatherData(city) {
           const currentWindSpeed = currentWeather.wind_speed;
           const currentHumidity = currentWeather.humidity;
 
-          // ------------------ Show the Current Weather Forecast ------------------
-
-          // Show the current location and date
+          // Display current weather forecast
           const currentLocation = document.createElement("h2");
-
           currentLocation.innerHTML = `${city} (${currentDate})`;
           currentWeatherData.append(currentLocation);
 
-          // Display the current weather Icon
-
+          // Display current weather icon
           const currentWeatherIcon = currentWeather.weather[0].icon;
           const currentWeatherIconURL = `http://openweathermap.org/img/wn/${currentWeatherIcon}.png`;
           const currentWeatherDescription =
@@ -110,9 +110,9 @@ function fetchWeatherData(city) {
           const currentWeatherIconImg = document.createElement("img");
           currentWeatherIconImg.src = currentWeatherIconURL;
           currentWeatherIconImg.alt = currentWeatherDescription;
-
           currentLocation.append(currentWeatherIconImg);
 
+          // Set styles for current weather section
           currentLocation.setAttribute(
             "style",
             "font-size: 2.2rem; font-weight: 700; margin: 10px 0;"
@@ -123,7 +123,7 @@ function fetchWeatherData(city) {
             "width: 95%; border: 2px solid; border-radius: 5px; margin: 10px 20px; padding-left: 7px; box-shadow: 7px 7px rgba(72, 1, 255, 0.4); background: linear-gradient(to right, #00c6ff, #0072ff)"
           );
 
-          //   Show the current locations temp, wind, & humidity
+          // Show current temperature, wind speed, and humidity
           const currentLocationTemp = document.createElement("p");
           const currentLocationWind = document.createElement("p");
           const currentLocationHumidity = document.createElement("p");
@@ -136,20 +136,16 @@ function fetchWeatherData(city) {
           currentWeatherData.append(currentLocationWind);
           currentWeatherData.append(currentLocationHumidity);
 
-          // ------------------ Show the 5 Day Weather Forecast --------------------
-
-          // Next 5 days weather data
+          // Display 5-day weather forecast
           const dailyWeather = data.daily;
 
-          // Loop over the daily weather array
           for (let i = 0; i < 5; i++) {
             const upcomingWeather = dailyWeather[i];
             const upcomingDate = dayjs()
               .add(i + 1, "day")
               .format("D/M/YYYY");
 
-            // Display the upcoming days weather Icon
-
+            // Display upcoming weather icon
             const upcomingWeatherIcon = dailyWeather[i].weather[0].icon;
             const upcomingWeatherIconURL = `http://openweathermap.org/img/wn/${upcomingWeatherIcon}.png`;
             const upcomingWeatherDescription =
@@ -159,51 +155,54 @@ function fetchWeatherData(city) {
             upcomingWeatherIconImg.src = upcomingWeatherIconURL;
             upcomingWeatherIconImg.alt = upcomingWeatherDescription;
 
-            currentLocation.append(upcomingWeatherIconImg);
-
             const upcomingTemp = Math.floor(
               ((upcomingWeather.temp.day - 32) * 5) / 9
             );
             const upcomingWindSpeed = upcomingWeather.wind_speed;
             const upcomingHumidity = upcomingWeather.humidity;
 
-            // Show the upcoming locations temp, wind, & humidity
+            // Show upcoming weather data
             const upcomingLocationDate = document.createElement("h3");
             const upcomingLocationTemp = document.createElement("p");
-            const upcomingtLocationWind = document.createElement("p");
+            const upcomingLocationWind = document.createElement("p");
             const upcomingLocationHumidity = document.createElement("p");
 
             upcomingLocationDate.textContent = `${upcomingDate}`;
             upcomingLocationTemp.textContent = `Temp: ${upcomingTemp} °C`;
-            upcomingtLocationWind.textContent = `Wind: ${upcomingWindSpeed} MPH`;
+            upcomingLocationWind.textContent = `Wind: ${upcomingWindSpeed} MPH`;
             upcomingLocationHumidity.textContent = `Humidity: ${upcomingHumidity}%`;
 
             const upcomingWeatherDivEl = document.createElement("div");
 
+            // Append upcoming weather elements to the div
             upcomingWeatherDivEl.append(upcomingLocationDate);
             upcomingWeatherDivEl.append(upcomingWeatherIconImg);
             upcomingWeatherDivEl.append(upcomingLocationTemp);
-            upcomingWeatherDivEl.append(upcomingtLocationWind);
+            upcomingWeatherDivEl.append(upcomingLocationWind);
             upcomingWeatherDivEl.append(upcomingLocationHumidity);
 
+            // Append the div to the upcoming weather data section
             upcomingWeatherData.append(upcomingWeatherDivEl);
 
+            // Set styles for upcoming weather divs
             upcomingWeatherDivEl.setAttribute(
               "style",
               "padding: 5px 20px; margin: 10px 0; border: 2px solid; border-radius: 5px; box-shadow: 7px 7px rgba(72, 1, 255, 0.4); background: linear-gradient(to right, #00c6ff, #0072ff)"
             );
           }
 
+          // Set styles for upcoming weather section
           upcomingWeatherData.setAttribute(
             "style",
             "width: 95%; margin: 10px 20px; padding-left: 7px"
           );
 
-          // 5-day forecast heading
+          // Add 5-day forecast heading
           const upcomingForecastHeading = document.createElement("h2");
           upcomingForecastHeading.textContent = "5-Day Forecast:";
           fiveDayForecastEl.append(upcomingForecastHeading);
 
+          // Set styles for forecast heading
           upcomingForecastHeading.setAttribute(
             "style",
             "font-weight: 700; margin-left: 30px; margin-top: 30px"
@@ -216,6 +215,7 @@ function fetchWeatherData(city) {
 clearBtnEl.addEventListener("click", (event) => {
   event.preventDefault();
 
+  // Clear all displayed data
   searchedCitiesEl.textContent = "";
   currentWeatherData.textContent = "";
   upcomingWeatherData.textContent = "";
