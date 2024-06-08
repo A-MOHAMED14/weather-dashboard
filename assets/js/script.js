@@ -3,6 +3,7 @@ const cityInputEl = document.querySelector("#city-name");
 const searchBtnEl = document.querySelector("#search-btn");
 const currentWeatherData = document.querySelector("#current-weather-data");
 const upcomingWeatherData = document.querySelector("#daily-weather-data");
+const searchedCitiesEl = document.querySelector("#searched-cities");
 
 // Global variables
 const WEATHER_API_BASE_URL = "https://api.openweathermap.org";
@@ -13,11 +14,52 @@ searchBtnEl.addEventListener("click", (event) => {
   event.preventDefault();
 
   const city = cityInputEl.value;
-  doSomething(city);
+
+  searchedCitiesEl.textContent = "";
+  currentWeatherData.textContent = "";
+  upcomingWeatherData.textContent = "";
+
+  fetchWeatherData(city);
+  showSearchedCities(city);
 });
 
+function showSearchedCities(city) {
+  if (city) {
+    let citiesArr = JSON.parse(localStorage.getItem("searchedCities")) || [];
+    if (!citiesArr.includes(city)) {
+      citiesArr.push(city);
+      localStorage.setItem("searchedCities", JSON.stringify(citiesArr));
+    } else {
+      console.log("City already saved");
+    }
+  }
+
+  const storedCities = JSON.parse(localStorage.getItem("searchedCities"));
+
+  console.log(storedCities, "*******");
+
+  storedCities.forEach((city) => {
+    const cityBtnEl = document.createElement("button");
+    cityBtnEl.textContent = city;
+    searchedCitiesEl.append(cityBtnEl);
+
+    cityBtnEl.addEventListener("click", (event) => {
+      event.preventDefault();
+      currentWeatherData.textContent = "";
+      upcomingWeatherData.textContent = "";
+      fetchWeatherData(city);
+    });
+
+    searchedCitiesEl.setAttribute("style", "width: 100%");
+    cityBtnEl.setAttribute(
+      "style",
+      "width: 100%; border: none; border-radius: 5px; margin-bottom: 7px; color: white; background-color:  #895bff"
+    );
+  });
+}
+
 // Lookup the location to get the Lat/Lon
-function doSomething(city) {
+function fetchWeatherData(city) {
   const apiUrl = `${WEATHER_API_BASE_URL}/geo/1.0/direct?q=${city}&limit=5&appid=${WEATHER_API_KEY}`;
   fetch(apiUrl)
     .then((response) => response.json())
