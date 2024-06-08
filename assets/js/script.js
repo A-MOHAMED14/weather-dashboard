@@ -1,6 +1,7 @@
 // DOM elements
 const cityInputEl = document.querySelector("#city-name");
 const searchBtnEl = document.querySelector("#search-btn");
+const clearBtnEl = document.querySelector("#clear-btn")
 const currentWeatherData = document.querySelector("#current-weather-data");
 const upcomingWeatherData = document.querySelector("#daily-weather-data");
 const searchedCitiesEl = document.querySelector("#searched-cities");
@@ -43,6 +44,7 @@ function showSearchedCities(city) {
   storedCities.forEach((city) => {
     const cityBtnEl = document.createElement("button");
     cityBtnEl.textContent = city;
+    cityBtnEl.classList.add('searched-city-button');
     searchedCitiesEl.append(cityBtnEl);
 
     cityBtnEl.addEventListener("click", (event) => {
@@ -53,9 +55,10 @@ function showSearchedCities(city) {
     });
 
     searchedCitiesEl.setAttribute("style", "width: 100%");
+    
     cityBtnEl.setAttribute(
       "style",
-      "width: 100%; border: none; border-radius: 5px; margin-bottom: 7px; color: white; background-color:  #895bff"
+      "width: 100%; border: none; border-radius: 5px; margin-bottom: 7px; color: white; background-color: #895bff"
     );
   });
 }
@@ -81,7 +84,7 @@ function fetchWeatherData(city) {
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            // console.log(data);
 
           // Current weather data
           const currentWeather = data.current;
@@ -127,7 +130,7 @@ function fetchWeatherData(city) {
 
           // Next 5 days weather data
           const dailyWeather = data.daily;
-          console.log(dailyWeather);
+          // console.log(dailyWeather);
 
           //   Show the current locations temp, wind, & humidity
           const currentLocationTemp = document.createElement("p");
@@ -175,7 +178,6 @@ function fetchWeatherData(city) {
             const upcomingLocationHumidity = document.createElement("p");
 
             upcomingLocationDate.textContent = `${upcomingDate}`;
-            // ************* HERE IS WHERE YOU NEED TO ADD THE WEATHER ICON ************** 
             upcomingLocationTemp.textContent = `Temp: ${upcomingTemp} °C`;
             upcomingtLocationWind.textContent = `Wind: ${upcomingWindSpeed} MPH`;
             upcomingLocationHumidity.textContent = `Humidity: ${upcomingHumidity}%`;
@@ -204,4 +206,17 @@ function fetchWeatherData(city) {
         });
     });
 }
+
+console.log(localStorage, "<======")
+
+// Remove search history when clear button is clicked
+clearBtnEl.addEventListener("click", (event) => {
+  event.preventDefault()
+  
+  searchedCitiesEl.textContent = "";
+  currentWeatherData.textContent = "";
+  upcomingWeatherData.textContent = "";
+  
+  localStorage.clear()
+})
 
