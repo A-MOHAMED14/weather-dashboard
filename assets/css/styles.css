@@ -14,7 +14,6 @@ body {
 }
 
 /* HEADER STYLING */
-
 #title {
   padding: 30px;
   background-image: linear-gradient(
@@ -33,18 +32,15 @@ body {
 }
 
 /* WEATHER CONTAINER STYLING */
-
 #weather-container {
   display: flex;
 }
 
-/* SEARCH FOR A CITY SECTION STYLING*/
+/* SEARCH CITY SECTION STYLING */
 #search-city {
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 15px 10px;
   width: 20%;
 }
 
@@ -87,25 +83,25 @@ body {
   background-color: #3000a8;
 }
 
-/* SEARCHED CITIES BUTTONS STYLING */
+/* SEARCHED CITIES BUTTON STYLING */
 .searched-city-button:hover {
   background-color: #4f3397;
 }
 
-/* CURRENT LOCATION WEATHER CONTAINER STYLING */
+/* CURRENT LOCATION WEATHER STYLING */
 #current-location-weather {
   display: flex;
   flex-direction: column;
   width: 70%;
 }
 
-/* CURRENT WEATHER CONTAINER STYLING */
+/* CURRENT WEATHER STYLING */
 #current-weather-data {
   display: flex;
   flex-direction: column;
 }
 
-/* DAILY WEATHER CONTAINER STYLING */
+/* DAILY WEATHER STYLING */
 #daily-weather-data {
   display: flex;
   flex-wrap: wrap;
@@ -113,11 +109,9 @@ body {
   align-items: center;
 }
 
-/* MEDIA QUERY TO CREATE A RESPONSIVE WEB PAGE */
-
+/* RESPONSIVE DESIGN */
 @media (max-width: 750px) {
   #weather-container {
-    display: flex;
     flex-direction: column;
   }
 
