@@ -26,18 +26,25 @@
     </header>
 
     <div id="weather-container">
+      <div class=""></div>
       <div id="search-city" class="col-12 col-md-3">
         <h2>Search for a city:</h2>
-        <form>
-          <input type="text" placeholder="Enter city" />
-          <button>Search</button>
+        <form id="search-form">
+          <input id="city-name" type="text" placeholder="Enter city" />
+          <button id="search-btn">Search</button>
         </form>
+        <hr />
+        <div id="searched-cities" class="d-flex flex-column"></div>
       </div>
-      <div id="loaction-weather">
-        <h2>Current locations weather:</h2>
-        <div id="results-content"></div>
+      <div id="current-location-weather" class="col-12 col-md-9">
+        <div id="current-weather-data"></div>
+        <div
+          id="daily-weather-data"
+          class="d-flex justify-content-between"
+        ></div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
