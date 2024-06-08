@@ -23,6 +23,8 @@ searchBtnEl.addEventListener("click", (event) => {
   showSearchedCities(city);
 });
 
+showSearchedCities();
+
 function showSearchedCities(city) {
   if (city) {
     let citiesArr = JSON.parse(localStorage.getItem("searchedCities")) || [];
@@ -36,7 +38,7 @@ function showSearchedCities(city) {
 
   const storedCities = JSON.parse(localStorage.getItem("searchedCities"));
 
-  console.log(storedCities, "*******");
+  // console.log(storedCities, "*******");
 
   storedCities.forEach((city) => {
     const cityBtnEl = document.createElement("button");
@@ -79,7 +81,7 @@ function fetchWeatherData(city) {
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
-          //   console.log(data);
+            console.log(data);
 
           // Current weather data
           const currentWeather = data.current;
@@ -97,8 +99,21 @@ function fetchWeatherData(city) {
 
           //   Show the current location and date
           const currentLocation = document.createElement("h2");
-          currentLocation.textContent = `${city} (${currentDate})`;
+          
+          currentLocation.innerHTML = `${city} (${currentDate})`;
           currentWeatherData.append(currentLocation);
+
+          // Display the current weather Icon
+
+          const currentWeatherIcon = currentWeather.weather[0].icon
+          const currentWeatherIconURL =  `http://openweathermap.org/img/wn/${currentWeatherIcon}.png`
+          const currentWeatherDescription = currentWeather.weather[0].description
+
+          const currentWeatherIconImg = document.createElement('img')
+          currentWeatherIconImg.src = currentWeatherIconURL
+          currentWeatherIconImg.alt = currentWeatherDescription
+
+          currentLocation.append(currentWeatherIconImg)
 
           currentLocation.setAttribute(
             "style",
@@ -138,12 +153,13 @@ function fetchWeatherData(city) {
             // console.log(upcomingDate, upcomingTemp, upcomiingWindSpeed, upcomingHumidity)
 
             // Show the upcoming locations temp, wind, & humidity
-            const upcomingLocationDate = document.createElement("h4");
+            const upcomingLocationDate = document.createElement("h3");
             const upcomingLocationTemp = document.createElement("p");
             const upcomingtLocationWind = document.createElement("p");
             const upcomingLocationHumidity = document.createElement("p");
 
-            upcomingLocationDate.textContent = `Date: ${upcomingDate}`;
+            upcomingLocationDate.textContent = `${upcomingDate}`;
+            // ************* HERE IS WHERE YOU NEED TO ADD THE WEATHER ICON ************** 
             upcomingLocationTemp.textContent = `Temp: ${upcomingTemp} °C`;
             upcomingtLocationWind.textContent = `Wind: ${upcomingWindSpeed} MPH`;
             upcomingLocationHumidity.textContent = `Humidity: ${upcomingHumidity}%`;
