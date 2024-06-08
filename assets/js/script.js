@@ -91,9 +91,7 @@ function fetchWeatherData(city) {
           const currentWindSpeed = currentWeather.wind_speed;
           const currentHumidity = currentWeather.humidity;
 
-          // Next 5 days weather data
-          const dailyWeather = data.daily;
-          console.log(dailyWeather);
+          
 
           // ------------------ Show the Current Weather Forecast ------------------
 
@@ -126,6 +124,11 @@ function fetchWeatherData(city) {
             "border: 2px solid; border-radius: 5px; width: 90%; margin: 10px 20px; padding-left: 7px; box-shadow: 7px 7px rgba(72, 1, 255, 0.4); background: linear-gradient(to right, #00c6ff, #0072ff)"
           );
 
+
+          // Next 5 days weather data
+          const dailyWeather = data.daily;
+          console.log(dailyWeather);
+
           //   Show the current locations temp, wind, & humidity
           const currentLocationTemp = document.createElement("p");
           const currentLocationWind = document.createElement("p");
@@ -145,6 +148,19 @@ function fetchWeatherData(city) {
             const upcomingDate = dayjs()
               .add(i + 1, "day")
               .format("D/M/YYYY");
+
+              // Display the upcoming days weather Icon
+
+          const upcomingWeatherIcon = dailyWeather[i].weather[0].icon
+          const upcomingWeatherIconURL =  `http://openweathermap.org/img/wn/${upcomingWeatherIcon}.png`
+          const upcomingWeatherDescription = dailyWeather[i].weather[0].description
+
+          const upcomingWeatherIconImg = document.createElement('img')
+          upcomingWeatherIconImg.src = upcomingWeatherIconURL
+          upcomingWeatherIconImg.alt = upcomingWeatherDescription
+
+          currentLocation.append(upcomingWeatherIconImg)
+
             const upcomingTemp = Math.floor(
               ((upcomingWeather.temp.day - 32) * 5) / 9
             );
@@ -168,6 +184,7 @@ function fetchWeatherData(city) {
             // upcomingWeatherDivEl.setAttribute("class", "col-12 col-md-3");
 
             upcomingWeatherDivEl.append(upcomingLocationDate);
+            upcomingWeatherDivEl.append(upcomingWeatherIconImg);
             upcomingWeatherDivEl.append(upcomingLocationTemp);
             upcomingWeatherDivEl.append(upcomingtLocationWind);
             upcomingWeatherDivEl.append(upcomingLocationHumidity);
