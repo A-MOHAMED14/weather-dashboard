@@ -198,6 +198,7 @@ function fetchWeatherData(city) {
           );
 
           // Add 5-day forecast heading
+          fiveDayForecastEl.textContent = "";
           const upcomingForecastHeading = document.createElement("h2");
           upcomingForecastHeading.textContent = "5-Day Forecast:";
           fiveDayForecastEl.append(upcomingForecastHeading);
