@@ -10,6 +10,7 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
   background-color: #f0f4f8;
+  width: 100%;
 }
 
 /* HEADER STYLING */
@@ -30,6 +31,13 @@ body {
   text-align: center;
   color: white;
 }
+
+/* WEATHER CONTAINER STYLING */
+
+#weather-container {
+  display: flex;
+}
+
 
 /* SEARCH FOR A CITY SECTION STYLING*/
 #weather-container {
@@ -77,4 +85,11 @@ body {
 
 #clear-btn:hover {
   background-color: #3000a8;
+}
+
+
+/* SEARCHED CITIES BUTTONS STYLING */
+
+.searched-city-button:hover {
+  background-color: #4f3397;
 }
