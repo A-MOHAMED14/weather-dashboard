@@ -124,7 +124,7 @@ function fetchWeatherData(city) {
           //   *** Place at the end ***
           currentWeatherData.setAttribute(
             "style",
-            "border: 2px solid; border-radius: 5px; width: 90%; margin: 10px 20px; padding-left: 7px; box-shadow: 7px 7px rgba(72, 1, 255, 0.4); background: linear-gradient(to right, #00c6ff, #0072ff)"
+            "width: 95%; border: 2px solid; border-radius: 5px; margin: 10px 20px; padding-left: 7px; box-shadow: 7px 7px rgba(72, 1, 255, 0.4); background: linear-gradient(to right, #00c6ff, #0072ff)"
           );
 
 
@@ -152,17 +152,18 @@ function fetchWeatherData(city) {
               .add(i + 1, "day")
               .format("D/M/YYYY");
 
-              // Display the upcoming days weather Icon
+            // Display the upcoming days weather Icon
 
-          const upcomingWeatherIcon = dailyWeather[i].weather[0].icon
-          const upcomingWeatherIconURL =  `http://openweathermap.org/img/wn/${upcomingWeatherIcon}.png`
-          const upcomingWeatherDescription = dailyWeather[i].weather[0].description
+            const upcomingWeatherIcon = dailyWeather[i].weather[0].icon;
+            const upcomingWeatherIconURL = `http://openweathermap.org/img/wn/${upcomingWeatherIcon}.png`;
+            const upcomingWeatherDescription = dailyWeather[i].weather[0].description;
+              
 
-          const upcomingWeatherIconImg = document.createElement('img')
-          upcomingWeatherIconImg.src = upcomingWeatherIconURL
-          upcomingWeatherIconImg.alt = upcomingWeatherDescription
+            const upcomingWeatherIconImg = document.createElement("img");
+            upcomingWeatherIconImg.src = upcomingWeatherIconURL;
+            upcomingWeatherIconImg.alt = upcomingWeatherDescription;
 
-          currentLocation.append(upcomingWeatherIconImg)
+            currentLocation.append(upcomingWeatherIconImg);
 
             const upcomingTemp = Math.floor(
               ((upcomingWeather.temp.day - 32) * 5) / 9
@@ -183,7 +184,6 @@ function fetchWeatherData(city) {
             upcomingLocationHumidity.textContent = `Humidity: ${upcomingHumidity}%`;
 
             const upcomingWeatherDivEl = document.createElement("div");
-            // upcomingWeatherDivEl.setAttribute("class", "col-12 col-md-3");
 
             upcomingWeatherDivEl.append(upcomingLocationDate);
             upcomingWeatherDivEl.append(upcomingWeatherIconImg);
@@ -195,13 +195,13 @@ function fetchWeatherData(city) {
 
             upcomingWeatherDivEl.setAttribute(
               "style",
-              "padding: 30px; border: 2px solid; border-radius: 5px; box-shadow: 7px 7px rgba(72, 1, 255, 0.4); background: linear-gradient(to right, #00c6ff, #0072ff)"
+              "padding: 5px 20px; margin: 10px 0; border: 2px solid; border-radius: 5px; box-shadow: 7px 7px rgba(72, 1, 255, 0.4); background: linear-gradient(to right, #00c6ff, #0072ff)"
             );
           }
 
           upcomingWeatherData.setAttribute(
             "style",
-            "width: 90%; margin: 50px 20px; padding-left: 7px"
+            "width: 95%; margin: 50px 20px; padding-left: 7px"
           );
         });
     });
