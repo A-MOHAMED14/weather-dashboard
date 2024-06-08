@@ -58,7 +58,7 @@ function showSearchedCities(city) {
     
     cityBtnEl.setAttribute(
       "style",
-      "width: 100%; border: none; border-radius: 5px; margin-bottom: 7px; color: white; background-color: #895bff"
+      "width: 100%; border: none; border-radius: 5px; padding: 5px; margin-bottom: 10px; color: white; background-color: #895bff"
     );
   });
 }

@@ -55,13 +55,14 @@ body {
 }
 
 #search-city form input {
-  padding: 0 10px;
+  padding: 7px 10px;
   margin-bottom: 15px;
   border-radius: 5px;
   width: 100%;
 }
 
 #search-btn {
+  padding: 5px;
   border: none;
   border-radius: 5px;
   width: 100%;
@@ -74,10 +75,11 @@ body {
 }
 
 #clear-btn {
+  padding: 5px;
   border: none;
   border-radius: 5px;
   width: 100%;
-  margin-top: 5px;
+  margin-top: 10px;
   background-color: #4801ff;
   color: white;
 }
