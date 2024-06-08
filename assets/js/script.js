@@ -4,6 +4,7 @@ const searchBtnEl = document.querySelector("#search-btn");
 const clearBtnEl = document.querySelector("#clear-btn")
 const currentWeatherData = document.querySelector("#current-weather-data");
 const upcomingWeatherData = document.querySelector("#daily-weather-data");
+const fiveDayForecastEl = document.querySelector("#five-day-forecast")
 const searchedCitiesEl = document.querySelector("#searched-cities");
 
 // Global variables
@@ -51,6 +52,7 @@ function showSearchedCities(city) {
       event.preventDefault();
       currentWeatherData.textContent = "";
       upcomingWeatherData.textContent = "";
+      fiveDayForecastEl.textContent = "";
       fetchWeatherData(city);
     });
 
@@ -146,6 +148,7 @@ function fetchWeatherData(city) {
           currentWeatherData.append(currentLocationHumidity);
 
           // ------------------ Show the 5 Day Weather Forecast --------------------
+
           for (let i = 0; i < 5; i++) {
             const upcomingWeather = dailyWeather[i];
             const upcomingDate = dayjs()
@@ -201,8 +204,16 @@ function fetchWeatherData(city) {
 
           upcomingWeatherData.setAttribute(
             "style",
-            "width: 95%; margin: 50px 20px; padding-left: 7px"
+            "width: 95%; margin: 10px 20px; padding-left: 7px"
           );
+
+
+          // 5-day forecast heading
+          const upcomingForecastHeading = document.createElement('h2')
+          upcomingForecastHeading.textContent = '5-Day Forecast:'
+          fiveDayForecastEl.append(upcomingForecastHeading)
+
+          upcomingForecastHeading.setAttribute('style', 'font-weight: 700; margin-left: 30px; margin-top: 30px')
         });
     });
 }
@@ -216,6 +227,7 @@ clearBtnEl.addEventListener("click", (event) => {
   searchedCitiesEl.textContent = "";
   currentWeatherData.textContent = "";
   upcomingWeatherData.textContent = "";
+  fiveDayForecastEl.textContent = "";
   
   localStorage.clear()
 })
