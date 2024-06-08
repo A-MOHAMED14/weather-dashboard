@@ -6,7 +6,7 @@ The goal of this project is to build a weather dashboard that runs in the browse
 
 ## Live Demo
 
-To access the live website, <a href="">click here</a>
+To access the live website, <a href="https://a-mohamed14.github.io/weather-dashboard/">click here</a>
 
 ## Key Features and Accomplishments
 
