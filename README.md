@@ -31,3 +31,11 @@ To access the live website, <a href="">click here</a>
 - **Search History**: The application maintains a search history of previously searched cities. Users can click on any city in the search history to view the current and future weather conditions for that city again.
 
 - **Responsive Design**: The weather dashboard features a responsive design, ensuring a seamless and user-friendly experience across different devices and screen sizes.
+
+## Website Preview
+
+![website preview snippet](./assets/screenshots/website-screenshot.png)
+
+## Code Preview
+
+![code preview snippet](./assets/screenshots/code-screenshot.png)
