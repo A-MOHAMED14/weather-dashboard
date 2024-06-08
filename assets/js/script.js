@@ -2,6 +2,7 @@
 const cityInputEl = document.querySelector("#city-name");
 const searchBtnEl = document.querySelector("#search-btn");
 const currentWeatherData = document.querySelector("#current-weather-data");
+const upcomingWeatherData = document.querySelector("#daily-weather-data");
 
 // Global variables
 const WEATHER_API_BASE_URL = "https://api.openweathermap.org";
@@ -65,7 +66,7 @@ function doSomething(city) {
           //   *** Place at the end ***
           currentWeatherData.setAttribute(
             "style",
-            "border: 2px solid; border-radius: 5px; width: 90%; margin: 10px 20px; padding-left: 7px; box-shadow: 7px 7px #4801ff;"
+            "border: 2px solid; border-radius: 5px; width: 90%; margin: 10px 20px; padding-left: 7px; box-shadow: 7px 7px rgba(72, 1, 255, 0.4); background: linear-gradient(to right, #00c6ff, #0072ff)"
           );
 
           //   Show the current locations temp, wind, & humidity
@@ -82,6 +83,50 @@ function doSomething(city) {
           currentWeatherData.append(currentLocationHumidity);
 
           // ------------------ Show the 5 Day Weather Forecast --------------------
+          for (let i = 0; i < 5; i++) {
+            const upcomingWeather = dailyWeather[i];
+            const upcomingDate = dayjs()
+              .add(i + 1, "day")
+              .format("D/M/YYYY");
+            const upcomingTemp = Math.floor(
+              ((upcomingWeather.temp.day - 32) * 5) / 9
+            );
+            const upcomingWindSpeed = upcomingWeather.wind_speed;
+            const upcomingHumidity = upcomingWeather.humidity;
+            // console.log(upcomingDate, upcomingTemp, upcomiingWindSpeed, upcomingHumidity)
+
+            // Show the upcoming locations temp, wind, & humidity
+            const upcomingLocationDate = document.createElement("h4");
+            const upcomingLocationTemp = document.createElement("p");
+            const upcomingtLocationWind = document.createElement("p");
+            const upcomingLocationHumidity = document.createElement("p");
+
+            upcomingLocationDate.textContent = `Date: ${upcomingDate}`;
+            upcomingLocationTemp.textContent = `Temp: ${upcomingTemp} °C`;
+            upcomingtLocationWind.textContent = `Wind: ${upcomingWindSpeed} MPH`;
+            upcomingLocationHumidity.textContent = `Humidity: ${upcomingHumidity}%`;
+
+            const upcomingWeatherDivEl = document.createElement("div");
+            // upcomingWeatherDivEl.setAttribute("class", "col-12 col-md-3");
+
+            upcomingWeatherDivEl.append(upcomingLocationDate);
+            upcomingWeatherDivEl.append(upcomingLocationTemp);
+            upcomingWeatherDivEl.append(upcomingtLocationWind);
+            upcomingWeatherDivEl.append(upcomingLocationHumidity);
+
+            upcomingWeatherData.append(upcomingWeatherDivEl);
+
+            upcomingWeatherDivEl.setAttribute(
+              "style",
+              "padding: 30px; border: 2px solid; border-radius: 5px; box-shadow: 7px 7px rgba(72, 1, 255, 0.4); background: linear-gradient(to right, #00c6ff, #0072ff)"
+            );
+          }
+
+          upcomingWeatherData.setAttribute(
+            "style",
+            "width: 90%; margin: 50px 20px; padding-left: 7px"
+          );
         });
     });
 }
+
