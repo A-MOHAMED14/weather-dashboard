@@ -1,10 +1,10 @@
 // DOM elements
 const cityInputEl = document.querySelector("#city-name");
 const searchBtnEl = document.querySelector("#search-btn");
-const clearBtnEl = document.querySelector("#clear-btn")
+const clearBtnEl = document.querySelector("#clear-btn");
 const currentWeatherData = document.querySelector("#current-weather-data");
 const upcomingWeatherData = document.querySelector("#daily-weather-data");
-const fiveDayForecastEl = document.querySelector("#five-day-forecast")
+const fiveDayForecastEl = document.querySelector("#five-day-forecast");
 const searchedCitiesEl = document.querySelector("#searched-cities");
 
 // Global variables
@@ -40,12 +40,10 @@ function showSearchedCities(city) {
 
   const storedCities = JSON.parse(localStorage.getItem("searchedCities"));
 
-  // console.log(storedCities, "*******");
-
   storedCities.forEach((city) => {
     const cityBtnEl = document.createElement("button");
     cityBtnEl.textContent = city;
-    cityBtnEl.classList.add('searched-city-button');
+    cityBtnEl.classList.add("searched-city-button");
     searchedCitiesEl.append(cityBtnEl);
 
     cityBtnEl.addEventListener("click", (event) => {
@@ -57,7 +55,7 @@ function showSearchedCities(city) {
     });
 
     searchedCitiesEl.setAttribute("style", "width: 100%");
-    
+
     cityBtnEl.setAttribute(
       "style",
       "width: 100%; border: none; border-radius: 5px; padding: 5px; margin-bottom: 10px; color: white; background-color: #895bff"
@@ -71,14 +69,12 @@ function fetchWeatherData(city) {
   fetch(apiUrl)
     .then((response) => response.json())
     .then((data) => {
-      //   console.log(data, "<-----");
+      console.log(data, "<-----");
 
       // Pick the First location from the results
       const location = data[0];
       const lat = location.lat;
       const lon = location.lon;
-
-      //   console.log("location:", location, "lat:", lat, "lon:", lon);
 
       // Get the Weather for the cached location
       const apiUrl = `${WEATHER_API_BASE_URL}/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${WEATHER_API_KEY}`;
@@ -86,7 +82,7 @@ function fetchWeatherData(city) {
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
-            // console.log(data);
+          console.log(data), "******";
 
           // Current weather data
           const currentWeather = data.current;
@@ -96,43 +92,36 @@ function fetchWeatherData(city) {
           const currentWindSpeed = currentWeather.wind_speed;
           const currentHumidity = currentWeather.humidity;
 
-          
-
           // ------------------ Show the Current Weather Forecast ------------------
 
-          //   Show the current location and date
+          // Show the current location and date
           const currentLocation = document.createElement("h2");
-          
+
           currentLocation.innerHTML = `${city} (${currentDate})`;
           currentWeatherData.append(currentLocation);
 
           // Display the current weather Icon
 
-          const currentWeatherIcon = currentWeather.weather[0].icon
-          const currentWeatherIconURL =  `http://openweathermap.org/img/wn/${currentWeatherIcon}.png`
-          const currentWeatherDescription = currentWeather.weather[0].description
+          const currentWeatherIcon = currentWeather.weather[0].icon;
+          const currentWeatherIconURL = `http://openweathermap.org/img/wn/${currentWeatherIcon}.png`;
+          const currentWeatherDescription =
+            currentWeather.weather[0].description;
 
-          const currentWeatherIconImg = document.createElement('img')
-          currentWeatherIconImg.src = currentWeatherIconURL
-          currentWeatherIconImg.alt = currentWeatherDescription
+          const currentWeatherIconImg = document.createElement("img");
+          currentWeatherIconImg.src = currentWeatherIconURL;
+          currentWeatherIconImg.alt = currentWeatherDescription;
 
-          currentLocation.append(currentWeatherIconImg)
+          currentLocation.append(currentWeatherIconImg);
 
           currentLocation.setAttribute(
             "style",
             "font-size: 2.2rem; font-weight: 700; margin: 10px 0;"
           );
 
-          //   *** Place at the end ***
           currentWeatherData.setAttribute(
             "style",
             "width: 95%; border: 2px solid; border-radius: 5px; margin: 10px 20px; padding-left: 7px; box-shadow: 7px 7px rgba(72, 1, 255, 0.4); background: linear-gradient(to right, #00c6ff, #0072ff)"
           );
-
-
-          // Next 5 days weather data
-          const dailyWeather = data.daily;
-          // console.log(dailyWeather);
 
           //   Show the current locations temp, wind, & humidity
           const currentLocationTemp = document.createElement("p");
@@ -149,6 +138,10 @@ function fetchWeatherData(city) {
 
           // ------------------ Show the 5 Day Weather Forecast --------------------
 
+          // Next 5 days weather data
+          const dailyWeather = data.daily;
+
+          // Loop over the daily weather array
           for (let i = 0; i < 5; i++) {
             const upcomingWeather = dailyWeather[i];
             const upcomingDate = dayjs()
@@ -159,8 +152,8 @@ function fetchWeatherData(city) {
 
             const upcomingWeatherIcon = dailyWeather[i].weather[0].icon;
             const upcomingWeatherIconURL = `http://openweathermap.org/img/wn/${upcomingWeatherIcon}.png`;
-            const upcomingWeatherDescription = dailyWeather[i].weather[0].description;
-              
+            const upcomingWeatherDescription =
+              dailyWeather[i].weather[0].description;
 
             const upcomingWeatherIconImg = document.createElement("img");
             upcomingWeatherIconImg.src = upcomingWeatherIconURL;
@@ -173,7 +166,6 @@ function fetchWeatherData(city) {
             );
             const upcomingWindSpeed = upcomingWeather.wind_speed;
             const upcomingHumidity = upcomingWeather.humidity;
-            // console.log(upcomingDate, upcomingTemp, upcomiingWindSpeed, upcomingHumidity)
 
             // Show the upcoming locations temp, wind, & humidity
             const upcomingLocationDate = document.createElement("h3");
@@ -207,28 +199,27 @@ function fetchWeatherData(city) {
             "width: 95%; margin: 10px 20px; padding-left: 7px"
           );
 
-
           // 5-day forecast heading
-          const upcomingForecastHeading = document.createElement('h2')
-          upcomingForecastHeading.textContent = '5-Day Forecast:'
-          fiveDayForecastEl.append(upcomingForecastHeading)
+          const upcomingForecastHeading = document.createElement("h2");
+          upcomingForecastHeading.textContent = "5-Day Forecast:";
+          fiveDayForecastEl.append(upcomingForecastHeading);
 
-          upcomingForecastHeading.setAttribute('style', 'font-weight: 700; margin-left: 30px; margin-top: 30px')
+          upcomingForecastHeading.setAttribute(
+            "style",
+            "font-weight: 700; margin-left: 30px; margin-top: 30px"
+          );
         });
     });
 }
 
-console.log(localStorage, "<======")
-
 // Remove search history when clear button is clicked
 clearBtnEl.addEventListener("click", (event) => {
-  event.preventDefault()
-  
+  event.preventDefault();
+
   searchedCitiesEl.textContent = "";
   currentWeatherData.textContent = "";
   upcomingWeatherData.textContent = "";
   fiveDayForecastEl.textContent = "";
-  
-  localStorage.clear()
-})
 
+  localStorage.clear();
+});
